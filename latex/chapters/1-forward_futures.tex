@@ -1,0 +1,34 @@
+\section{Preliminaries}
+
+proof KFP
+
+\section{Martingale Optimal Transport}
+
+Let $X$ be the stochastic process with support $D$ such that for all $t \in [0, 1]$:
+\begin{align}
+    dX_t = \sigma(t, X_t) dW_t,
+\end{align}
+with initial density $p_0$ and terminal density $p_1$. The KFP equation writes:
+\begin{align}
+    \left\{
+    \begin{array}{ll}
+        \partial_t p - \partial_{xx}(p \cdot \gamma) = 0 & \forall t \in (0, 1) \, \forall x \in D, \\
+        p(0, \cdot) = p_0 & \forall x \in D, \\
+        p(1, \cdot) = p_1 & \forall x \in D,
+    \end{array}
+    \right.
+\end{align}
+where $\gamma(t, x) = \frac{1}{2} \sigma^2(t, x)$. The associated optimal transport problem consists in finding $\sigma^\star(\cdot, \cdot)$ such that:
+\begin{align}
+    \sigma^\star = \arg\min_{\sigma} \int_D \int_0^1 p(t, x) \cdot F(\gamma(t, x)) dx dt,
+\end{align}
+under the constraint that the density of $X$ matches the initial and terminal densities $p_0$ and $p_1$, with $F$ being a convex cost function. According to Strassen's theorem, the problem is feasible if and only if $X_0$ and $X_1$ are in convex order, i.e.:
+\begin{align}
+    & \expect{\phi(X_0)} \le \expect{\phi(X_1)} \\
+    \Leftrightarrow & \int_D \phi(x) p_0(x) dx \le \int_D \phi(x) p_1(x) dx,
+\end{align}
+for all convex functions $\phi$. This condition is easily verified if $X$ is a martingale:
+\begin{align}
+    \expect{\phi(X_0)} = \expect{\phi\left(\expectCond{0}{X_1}\right)} \le \expect{\expectCond{0}{\phi(X_1)}} = \expect{\phi(X_1)},
+\end{align}
+using Jensen inequality.
